@@ -1,0 +1,36 @@
+@mixin container-page{
+  display:flex;
+  flex-direction:column;
+  align-items:center;
+  text-align:center
+}
+@mixin link-style{
+  color:blue;
+  text-decoration:none;
+  margin-bottom:1.5rem;
+  &:hover{
+    text-decoration:underline
+  }
+}
+@mixin input-style{
+  padding:8px;
+  margin-top:5px;
+  border:1px solid #ccc;
+  border-radius:5px;
+  width:-webkit-fill-available
+}
+@mixin button-style{
+  padding:10px 15px;
+  width:100px;
+  background:#4a90e2;
+  color:white;
+  border:none;
+  border-radius:5px;
+  cursor:pointer;
+  &:hover{
+    background:#357abd
+  }
+  @media(max-width:580px){
+    width:100%
+  }
+}
