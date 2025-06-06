@@ -1,6 +1,6 @@
-import Home from './pages/Home.jsx';
-import EmployeeList from './pages/EmployeeList.jsx';
-import { Routes, Route } from 'react-router-dom';
+import { Routes, Route } from "react-router-dom";
+import Home from "./pages/Home.jsx";
+import EmployeeList from "./pages/EmployeeList.jsx";
 
 function App() {
   return (

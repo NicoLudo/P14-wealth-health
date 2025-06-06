@@ -1,25 +1,69 @@
-@use"../_mixins"as*;
-.employee-list{
+@use "../_mixins" as *;
+
+.employee-list {
   @include container-page;
-  &__link{
-    @include link-style
+
+  &__link {
+    @include link-style;
   }
-  &__controls{
-    display:flex;
-    justify-content:space-between;
-    margin-bottom:20px;
-    width:1200px;
-    & label:first-child,
-    & label:last-child{
-      display:flex;
-      gap:5px
+
+  &__controls {
+    display: flex;
+    justify-content: space-between;
+    align-items: flex-end;
+    margin-bottom: 20px;
+    max-width: 1200px;
+    width: 100%;
+
+    label:first-child,
+    label:last-child {
+      display: flex;
+      gap: 5px;
     }
-    &--bottom{
-      align-items:center;
-      margin-bottom:0
+
+    &--bottom {
+      align-items: center;
+    }
+
+    @media (max-width: 900px) {
+      flex-direction: column;
+      align-items: stretch;
+      gap: 10px;
+
+      label {
+        justify-content: center;
+      }
     }
   }
-  br{
-    display:none
+
+  &__table {
+    width: 1200px;
+    border-collapse: collapse;
+
+    @media (max-width: 1200px) {
+      width: 1000px;
+    }
+    @media (max-width: 1000px) {
+      width: 800px;
+    }
+    @media (max-width: 800px) {
+      width: 320px;
+      overflow-x: auto;
+      display: block;
+
+      th, td {
+        min-width: 120px;
+        box-sizing: border-box;
+      }
+    }
+  }
+
+  &__pagination {
+    display: flex;
+    gap: 10px;
+
+    @media (max-width: 900px) {
+      justify-content: center;
+    }
   }
 }
