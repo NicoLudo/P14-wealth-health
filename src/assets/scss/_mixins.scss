@@ -22,13 +22,13 @@
 @mixin button-style{
   padding:10px 15px;
   width:100px;
-  background:#4a90e2;
+  background:#005bb5;
   color:white;
   border:none;
   border-radius:5px;
   cursor:pointer;
   &:hover{
-    background:#357abd
+    background:#004494;
   }
   @media(max-width:580px){
     width:100%

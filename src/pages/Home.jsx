@@ -1,14 +1,13 @@
-import { useState, useEffect, useContext } from "react";
+import { useState, useEffect, useContext, Suspense, lazy } from "react";
 import { Link, useNavigate } from "react-router-dom";
-import Dropdown from "@nicoludo/nl-dropdown-component";
-import "@nicoludo/nl-dropdown-component/dist/nldropdown.css";
-import ReactModal from "react-modal";
-import DatePicker from "react-datepicker";
-import "react-datepicker/dist/react-datepicker.css";
 import "../assets/scss/components/modal.scss";
 import "../assets/scss/pages/home.scss";
 import { EmployeeContext } from "../context/EmployeeContext";
 import useFormState from "../hooks/useFormState";
+
+const Dropdown = lazy(() => import("@nicoludo/nl-dropdown-component"));
+const ReactModal = lazy(() => import("react-modal"));
+const DatePicker = lazy(() => import("react-datepicker"));
 
 function Home() {
   const states = ["AL", "AK", "AZ", "AR", "CA", "CO", "CT", "DE", "FL", "GA", "HI", "ID", "IL", "IN", "IA", "KS", "KY", "LA", "ME", "MD", "MA", "MI", "MN", "MS", "MO", "MT", "NE", "NV", "NH", "NJ", "NM", "NY", "NC", "ND", "OH", "OK", "OR", "PA", "RI", "SC", "SD", "TN", "TX", "UT", "VT", "VA", "WA", "WV", "WI", "WY"];
@@ -31,7 +30,11 @@ function Home() {
   const closeModal = () => setShowModal(false);
 
   useEffect(() => {
-    ReactModal.setAppElement("#root");
+    import("@nicoludo/nl-dropdown-component/dist/nldropdown.css");
+    import("react-datepicker/dist/react-datepicker.css");
+    import("react-modal").then((ReactModal) => {
+      ReactModal.default.setAppElement("#root");
+    });
   }, []);
 
   const handleSubmit = () => {
@@ -60,33 +63,39 @@ function Home() {
       <form className="home__form">
         <div className="home__grid">
           <div className="home__field">
-            <label className="home__label">First Name</label>
-            <input type="text" className="home__input" value={firstName} onChange={(e) => setFirstName(e.target.value)} />
+            <label className="home__label" htmlFor="firstName">First Name</label>
+            <input type="text" id="firstName" className="home__input" value={firstName} onChange={(e) => setFirstName(e.target.value)} />
           </div>
 
           <div className="home__field">
-            <label className="home__label">Last Name</label>
-            <input type="text" className="home__input" value={lastName} onChange={(e) => setLastName(e.target.value)} />
+            <label className="home__label" htmlFor="lastName">Last Name</label>
+            <input type="text" id="lastName" className="home__input" value={lastName} onChange={(e) => setLastName(e.target.value)} />
           </div>
 
           <div className="home__field">
-            <label className="home__label">Date of Birth</label>
-            <DatePicker
-              selected={dateOfBirth}
-              onChange={(date) => setDateOfBirth(date)}
-              dateFormat="dd/MM/yyyy"
-              className="home__input"
-            />
+            <label className="home__label" htmlFor="dateOfBirth">Date of Birth</label>
+            <Suspense fallback={<div>Loading...</div>}>
+              <DatePicker
+                id="dateOfBirth"
+                selected={dateOfBirth}
+                onChange={(date) => setDateOfBirth(date)}
+                dateFormat="dd/MM/yyyy"
+                className="home__input"
+              />
+            </Suspense>
           </div>
 
           <div className="home__field">
-            <label className="home__label">Start Date</label>
-            <DatePicker
-              selected={startDate}
-              onChange={(date) => setStartDate(date)}
-              dateFormat="dd/MM/yyyy"
-              className="home__input"
-            />
+            <label className="home__label" htmlFor="startDate">Start Date</label>
+            <Suspense fallback={<div>Loading...</div>}>
+              <DatePicker
+                id="startDate"
+                selected={startDate}
+                onChange={(date) => setStartDate(date)}
+                dateFormat="dd/MM/yyyy"
+                className="home__input"
+              />
+            </Suspense>
           </div>
         </div>
 
@@ -95,52 +104,60 @@ function Home() {
 
           <div className="home__grid">
             <div className="home__field">
-              <label className="home__label">Street</label>
-              <input type="text" className="home__input" value={street} onChange={(e) => setStreet(e.target.value)} />
+              <label className="home__label" htmlFor="street">Street</label>
+              <input type="text" id="street" className="home__input" value={street} onChange={(e) => setStreet(e.target.value)} />
             </div>
 
             <div className="home__field">
-              <label className="home__label">City</label>
-              <input type="text" className="home__input" value={city} onChange={(e) => setCity(e.target.value)} />
+              <label className="home__label" htmlFor="city">City</label>
+              <input type="text" id="city" className="home__input" value={city} onChange={(e) => setCity(e.target.value)} />
             </div>
 
             <div className="home__field">
-              <label className="home__label">State</label>
-              <Dropdown
-                options={states}
-                selected={selectedState}
-                setSelected={setSelectedState}
-              />
+              <label className="home__label" htmlFor="state">State</label>
+              <Suspense fallback={<div>Loading...</div>}>
+                <Dropdown
+                  id="state"
+                  options={states}
+                  selected={selectedState}
+                  setSelected={setSelectedState}
+                />
+              </Suspense>
             </div>
 
             <div className="home__field">
-              <label className="home__label">Zip</label>
-              <input type="text" className="home__input" value={zipCode} onChange={(e) => setZipCode(e.target.value)} />
+              <label className="home__label" htmlFor="zipCode">Zip</label>
+              <input type="text" id="zipCode" className="home__input" value={zipCode} onChange={(e) => setZipCode(e.target.value)} />
             </div>
           </div>
         </fieldset>
 
-        <label className="home__label">Department</label>
-        <Dropdown
-          options={departements}
-          selected={selectedDepartement}
-          setSelected={setSelectedDepartement}
-        />
+        <label className="home__label" htmlFor="department">Department</label>
+        <Suspense fallback={<div>Loading...</div>}>
+          <Dropdown
+            id="department"
+            options={departements}
+            selected={selectedDepartement}
+            setSelected={setSelectedDepartement}
+          />
+        </Suspense>
 
         <button type="button" className="home__button" onClick={handleSubmit}>Submit</button>
-        <ReactModal
-          isOpen={showModal}
-          onRequestClose={closeModal}
-          contentLabel="Employee Created"
-          className="modal"
-          overlayClassName="overlay"
-        >
-          <div className="modal__content">
-            <h2 className="modal__title">Employee Created</h2>
-            <p className="modal__message">The employee has been successfully created.</p>
-            <button className="modal__button" onClick={closeModal}>Close</button>
-          </div>
-        </ReactModal>
+        <Suspense fallback={<div>Loading...</div>}>
+          <ReactModal
+            isOpen={showModal}
+            onRequestClose={closeModal}
+            contentLabel="Employee Created"
+            className="modal"
+            overlayClassName="overlay"
+          >
+            <div className="modal__content">
+              <h2 className="modal__title">Employee Created</h2>
+              <p className="modal__message">The employee has been successfully created.</p>
+              <button className="modal__button" onClick={closeModal}>Close</button>
+            </div>
+          </ReactModal>
+        </Suspense>
       </form>
     </div>
   );

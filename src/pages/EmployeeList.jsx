@@ -7,7 +7,6 @@ import { EmployeeContext } from "../context/EmployeeContext";
 import useEmployeeFilter from "../hooks/useEmployeeFilter";
 import usePagination from "../hooks/usePagination";
 
-// Define table columns
 const columns = [
   { title: "First Name", field: "firstName", headerSort: false },
   { title: "Last Name", field: "lastName", headerSort: false },
@@ -36,7 +35,6 @@ const columns = [
 
 function EmployeeList() {
   const { employees, clearEmployees } = useContext(EmployeeContext);
-  // State variables
   const [searchTerm, setSearchTerm] = useState("");
   const [pageSize, setPageSize] = useState(10);
   const [currentPage, setCurrentPage] = useState(1);
@@ -44,11 +42,9 @@ function EmployeeList() {
   const [sortOrder, setSortOrder] = useState("asc");
   const tableRef = useRef(null);
 
-  // Filtered and paginated data
   const filteredData = useEmployeeFilter(employees, searchTerm, sortField, sortOrder);
   const { paginatedData, totalPages, startEntry, endEntry } = usePagination(filteredData, pageSize, currentPage);
 
-  // Update table data on changes
   useEffect(() => {
     if (tableRef.current) {
       tableRef.current.replaceData(paginatedData);
@@ -57,7 +53,6 @@ function EmployeeList() {
     }
   }, [paginatedData, pageSize, currentPage, employees]);
 
-  // Handlers for search, page size, page change, and sorting
   const handleSearchChange = useCallback((e) => {
     setSearchTerm(e.target.value);
   }, []);
@@ -102,6 +97,8 @@ function EmployeeList() {
         </label>
       </div>
 
+      <div aria-label="Liste des employés">
+
       <ReactTabulator
         ref={tableRef}
         columns={columns}
@@ -117,6 +114,8 @@ function EmployeeList() {
         style={{ width: "1200px" }}
         dataSorted={handleSort}
       />
+
+      </div>
 
       <div className="employee-list__controls employee-list__controls--bottom">
         <p>
