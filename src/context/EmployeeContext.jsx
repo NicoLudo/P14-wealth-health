@@ -1,15 +1,9 @@
-import { createContext, useEffect, useState } from "react";
+import { createContext, useState } from "react";
 
 export const EmployeeContext = createContext();
 
 export const EmployeeProvider = ({ children }) => {
-  const [employees, setEmployees] = useState(() =>
-    JSON.parse(localStorage.getItem("employees") || "[]")
-  );
-
-  useEffect(() => {
-    localStorage.setItem("employees", JSON.stringify(employees));
-  }, [employees]);
+  const [employees, setEmployees] = useState([]);
 
   const addEmployee = employee => setEmployees(e => [...e, employee]);
   const clearEmployees = () => setEmployees([]);

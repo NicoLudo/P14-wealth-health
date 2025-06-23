@@ -10,7 +10,15 @@ const ReactModal = lazy(() => import("react-modal"));
 const DatePicker = lazy(() => import("react-datepicker"));
 
 const states = [
-  "AL","AK","AZ","AR","CA","CO","CT","DE","FL","GA","HI","ID","IL","IN","IA","KS","KY","LA","ME","MD","MA","MI","MN","MS","MO","MT","NE","NV","NH","NJ","NM","NY","NC","ND","OH","OK","OR","PA","RI","SC","SD","TN","TX","UT","VT","VA","WA","WV","WI","WY"
+  "AL","AK","AZ","AR","CA","CO",
+  "CT","DE","FL","GA","HI","ID",
+  "IL","IN","IA","KS","KY","LA",
+  "ME","MD","MA","MI","MN","MS",
+  "MO","MT","NE","NV","NH","NJ",
+  "NM","NY","NC","ND","OH","OK",
+  "OR","PA","RI","SC","SD","TN",
+  "TX","UT","VT","VA","WA","WV",
+  "WI","WY"
 ];
 const departments = ["Sales","Marketing","Engineering","Human Ressources","Legal"];
 
